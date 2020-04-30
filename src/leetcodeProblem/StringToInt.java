@@ -7,13 +7,13 @@ import java.util.Arrays;
 /**
  * 
  * @author Sifat
- * @since2020-04-2020
+ *  @since2020-04-2020
  *
  */
 public class StringToInt {
 
 	public static void main(String[] args) {
-		String value = "         -1073659550i4";
+		String value = "-2147483647";
 		System.out.println(myAtoi(value));
 //		myAtoi(value);
 	}
@@ -96,10 +96,6 @@ public class StringToInt {
 				}
 //				System.out.println(str);
 
-				if (isNagative) {
-					str = "-" + str;
-				}
-
 				if (isNagative && isPossitive) {
 					str = "0";
 				}
@@ -108,34 +104,22 @@ public class StringToInt {
 
 				val = "";
 				value = 0;
-				if (str.startsWith("-")) {
-//					System.out.println("negative number");
-					if (str.length() == 11 && str.startsWith("21")) {
 
-						val = str.substring(str.length() - 2);
-						num = Integer.parseInt(val);
+				if (str.length() == 10 && str.startsWith("21")) {
 
+					val = str.substring(str.length() - 2);
+					num = Integer.parseInt(val);
+
+					if (isNagative) {
 						if (num > 48) {
 							value = -2147483648;
-//							System.out.println(value);
+//								System.out.println(value);
 						} else {
+							str = "-" + str;
 							double a = Double.parseDouble(str);
 							value = (int) a;
 						}
-
-					} else if (str.length() > 11) {
-						value = -2147483648;
 					} else {
-						double a = Double.parseDouble(str);
-						value = (int) a;
-					}
-				} else {
-//					System.out.println("positive number");
-					if (str.length() == 10 && str.startsWith("21")) {
-
-						val = str.substring(str.length() - 2);
-						num = Integer.parseInt(val);
-
 						if (num > 47) {
 							value = 2147483647;
 //							System.out.println(value);
@@ -143,14 +127,21 @@ public class StringToInt {
 							double a = Double.parseDouble(str);
 							value = (int) a;
 						}
-
-					} else if (str.length() > 10) {
-						value = 2147483647;
-					} else {
-						double a = Double.parseDouble(str);
-						value = (int) a;
-//						System.out.println(value);
 					}
+
+				} else if (str.length() > 10) {
+					if (isNagative) {
+						value = -2147483648;
+					} else {
+						value = 2147483647;
+					}
+				} else {
+					if (isNagative) {
+						str = "-" + str;
+					}
+					double a = Double.parseDouble(str);
+					value = (int) a;
+//						System.out.println(value);
 				}
 
 			}
